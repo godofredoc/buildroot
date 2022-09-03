@@ -106,7 +106,7 @@ def main():
   target_cpu = sys.argv[4]
 
   cpus = ('x86', 'x64', 'arm64')
-  assert target_cpu in cpus
+  assert target_cpu in cpus, '%s not in accepted cpus %s' % (target_cpu, cpus)
   vc_bin_dir = ''
 
   # TODO(scottmg|goma): Do we need an equivalent of
