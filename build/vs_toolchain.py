@@ -82,8 +82,10 @@ def SetEnvironmentAndGetRuntimeDllDirs():
     # changed to three (x64/x86/arm64) and this code needs to handle both
     # possibilities, which can change independently from this code.
     if len(vs_runtime_dll_dirs) == 2:
-      vs_runtime_dll_dirs.append('ArmUnused')
       vs_runtime_dll_dirs.append('Arm64Unused')
+      
+    if len(vs_runtime_dll_dirs) == 3:
+      vs_runtime_dll_dirs.append('ArmUnused')
 
     os.environ['GYP_MSVS_OVERRIDE_PATH'] = toolchain
     os.environ['GYP_MSVS_VERSION'] = version
@@ -112,7 +114,7 @@ def SetEnvironmentAndGetRuntimeDllDirs():
     vs_runtime_dll_dirs = [x64_path,
                            os.path.join(os.path.expandvars('%windir%'),
                                         'SysWOW64'),
-                           'ArmUnused','Arm64Unused']
+                           'Arm64Unused', 'ArmUnused']
 
   return vs_runtime_dll_dirs
 
@@ -360,7 +362,7 @@ def CopyDlls(target_dir, configuration, target_cpu):
   if not vs_runtime_dll_dirs:
     return
 
-  x64_runtime, x86_runtime, arm_runtime, arm64_runtime = vs_runtime_dll_dirs
+  x64_runtime, x86_runtime, arm64_runtime, arm_runtime = vs_runtime_dll_dirs
   if target_cpu == 'x64':
     runtime_dir = x64_runtime
   elif target_cpu == 'x86':
