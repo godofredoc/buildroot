@@ -111,7 +111,7 @@ def SetEnvironmentAndGetRuntimeDllDirs():
     vs_runtime_dll_dirs = [x64_path,
                            os.path.join(os.path.expandvars('%windir%'),
                                         'SysWOW64'),
-                           'Arm64Unused']
+                           'ArmUnused','Arm64Unused']
 
   return vs_runtime_dll_dirs
 
@@ -359,13 +359,15 @@ def CopyDlls(target_dir, configuration, target_cpu):
   if not vs_runtime_dll_dirs:
     return
 
-  x64_runtime, x86_runtime, arm64_runtime = vs_runtime_dll_dirs
+  x64_runtime, x86_runtime, arm_runtime, arm64_runtime = vs_runtime_dll_dirs
   if target_cpu == 'x64':
     runtime_dir = x64_runtime
   elif target_cpu == 'x86':
     runtime_dir = x86_runtime
   elif target_cpu == 'arm64':
     runtime_dir = arm64_runtime
+  elif target_cpu == 'arm':
+    runtime_dir = arm_runtime
   else:
     raise Exception('Unknown target_cpu: ' + target_cpu)
   _CopyRuntime(target_dir, runtime_dir, target_cpu, debug=False)
