@@ -82,6 +82,7 @@ def SetEnvironmentAndGetRuntimeDllDirs():
     # changed to three (x64/x86/arm64) and this code needs to handle both
     # possibilities, which can change independently from this code.
     if len(vs_runtime_dll_dirs) == 2:
+      vs_runtime_dll_dirs.append('ArmUnused')
       vs_runtime_dll_dirs.append('Arm64Unused')
 
     os.environ['GYP_MSVS_OVERRIDE_PATH'] = toolchain
