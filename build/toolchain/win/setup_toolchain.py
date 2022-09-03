@@ -105,7 +105,7 @@ def main():
   runtime_dirs = sys.argv[3]
   target_cpu = sys.argv[4]
 
-  cpus = ('x86', 'x64', 'arm64')
+  cpus = ('x86', 'x64', 'arm', 'arm64')
   assert target_cpu in cpus, '%s not in accepted cpus %s' % (target_cpu, cpus)
   vc_bin_dir = ''
 
